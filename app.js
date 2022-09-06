@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 app.use("/api", userRouter);
 
 app.use((err, req, res, next) => {
-    res.beforeSend(err, 1);
+    return res.beforeSend(err, 1);
 });
 
 app.listen(9000, () => {
