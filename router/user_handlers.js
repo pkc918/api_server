@@ -11,10 +11,10 @@ exports.registerUser = (req, res) => {
       [username],
       (err, result) => {
           if (err) {
-              return res.beforeSend(err, 1);
+              return res.beforeSend(err, 502);
           }
           if (result.length > 0) {
-              return res.beforeSend(`用户名已被使用`, 1);
+              return res.beforeSend(`用户名已被使用`, 502);
           }
           // 对密码加密
           password = hashSync(password, 10);
@@ -25,13 +25,13 @@ exports.registerUser = (req, res) => {
             [username, password],
             (err, result) => {
                 if (err) {
-                    return res.beforeSend(err, 1);
+                    return res.beforeSend(err, 502);
                 }
                 // 影响行数为 1 行
                 if (result.affectedRows !== 1) {
-                    return res.beforeSend(`sql error`, 1);
+                    return res.beforeSend(`注册用户失败!`, 502);
                 }
-                return res.beforeSend(`注册成功`, 0);
+                return res.beforeSend(`注册成功`, 201);
             }
           );
       });
@@ -60,3 +60,4 @@ exports.login = (req, res) => {
           });
       });
 };
+

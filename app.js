@@ -1,10 +1,11 @@
-const userRouter = require("./router/user"); // 导入用户路由模块
 const express = require("express");
 const {expressjwt: JWT} = require("express-jwt");
 const {jwtSecretKey} = require("./config");
 const app = express();
 const cors = require("cors");// cors 中间件
 const joi = require("joi");
+const userRouter = require("./router/user"); // 导入用户路由模块
+const userinfoRouter = require("./router/userinfo"); // 导入用户信息路由模块
 
 // 中间件
 app.use(cors()); // 注册为全局可用中间件
@@ -17,11 +18,7 @@ app.use(JWT({secret: jwtSecretKey, algorithms: ["HS256"]}).unless({path: [/^\/ap
 
 // 做返回前的数据处理
 app.use((req, res, next) => {
-    /* status
-    *   1：错误
-    *   0：成功
-    * */
-    res.beforeSend = (message, status = 1) => {
+    res.beforeSend = (message, status = 200) => {
         res.send({
             status,
             message: message instanceof Error ? message.message : message
@@ -30,13 +27,14 @@ app.use((req, res, next) => {
     next();
 });
 app.use("/api", userRouter);
+app.use("/own", userinfoRouter);
 
 // 捕获错误的中间件
 app.use((err, req, res, next) => {
-    if (err instanceof joi.ValidationError) return res?.send({status: 1, message: err?.message});
+    if (err instanceof joi.ValidationError) return res?.send({status: 412, message: err?.message});
     if (err?.name === "UnauthorizedError") {
         return res?.send({
-            status: 1,
+            status: 401,
             message: "invalid token..."
         });
     } else {
