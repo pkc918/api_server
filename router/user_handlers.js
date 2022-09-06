@@ -1,5 +1,8 @@
 const db = require("../db/index");
 const {compareSync, hashSync} = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const {jwtSecretKey, expiresIn} = require("../config");
+// 注册
 exports.registerUser = (req, res) => {
     let {username, password} = req.body;
     // 判断该是否已经创建
@@ -34,9 +37,10 @@ exports.registerUser = (req, res) => {
       });
 };
 
+// 登录
 exports.login = (req, res) => {
     const {username, password} = req.body;
-    db.query(`select username,password from ev_users where username = ?`,
+    db.query(`select * from ev_users where username = ?`,
       [username],
       (err, result) => {
           if (err) {
@@ -46,6 +50,13 @@ exports.login = (req, res) => {
               return res.beforeSend(`sql error`, 1);
           }
           const flag = compareSync(password, result[0]["password"]);
-          return flag ? res.beforeSend(`Login OK!`, 0) : res.beforeSend(`密码有误，请重新登录!`, 1);
+          if (!flag) return res.beforeSend(`密码有误，请重新登录!`, 1);
+          const user = {...result[0], password: null, user_pic: null};
+          const token = `Bearer ${jwt.sign(user, jwtSecretKey, {expiresIn})}`;
+          return res.send({
+              status: 0,
+              token,
+              message: `登录成功!`
+          });
       });
 };
