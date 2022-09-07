@@ -14,3 +14,11 @@ exports.userInfo_schema = {
         email: Joi.string().email()
     }
 };
+
+exports.update_password = {
+    body: {
+        id: Joi.number().integer().min(1).required(),
+        oldPassword: Joi.string().pattern(/^[\S]{6,18}$/).required(),
+        newPassword: Joi.string().pattern(/^[\S]{6,18}$/).required()
+    }
+};
