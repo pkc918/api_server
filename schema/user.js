@@ -22,3 +22,9 @@ exports.update_password = {
         newPassword: Joi.string().pattern(/^[\S]{6,18}$/).required()
     }
 };
+
+exports.update_avatar = {
+    body: {
+        avatar: Joi.string().dataUri().required()
+    }
+}
