@@ -62,5 +62,13 @@ exports.updatePassword = (req, res) => {
 
 // 更新头像
 exports.updateAvatar = (req, res) => {
-    res.send("ok");
+    db.query(
+      `update ev_users set user_pic = ? where id = ?`,
+      [req.body.avatar, req.body.id],
+      (err, result) => {
+          if (err) return res.beforeSend(err, 502);
+          if (result.affectedRows !== 1) return res.beforeSend(`更新头像失败!`, 502);
+          return res.beforeSend(`更换头像成功!`, 200);
+      }
+    );
 };

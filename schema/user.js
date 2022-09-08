@@ -25,6 +25,7 @@ exports.update_password = {
 
 exports.update_avatar = {
     body: {
+        id: Joi.number().integer().min(1).required(),
         avatar: Joi.string().dataUri().required()
     }
-}
+};
