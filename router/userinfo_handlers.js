@@ -59,3 +59,8 @@ exports.updatePassword = (req, res) => {
       }
     );
 };
+
+// 更新头像
+exports.updateAvatar = (req, res) => {
+    res.send("ok");
+};
