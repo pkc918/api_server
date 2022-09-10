@@ -38,3 +38,19 @@ exports.addArticleCate = (req, res) => {
     );
 
 };
+
+exports.deleteArticleCateById = (req, res) => {
+    db.query(
+      `update ev_article_cate set is_delete = 1 where id = ?`,
+      [req.params.id],
+      (err, result) => {
+          if (err) return res.beforeSend(err, 502);
+          console.log(result.affectedRows);
+          if (result.affectedRows !== 1) return res.beforeSend(`删除标签失败!`, 502);
+          res.send({
+              message: `删除成功!`,
+              status: 200
+          });
+      }
+    );
+};
