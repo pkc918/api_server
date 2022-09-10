@@ -7,3 +7,9 @@ exports.add_ArticleCate = {
         title: Joi.string().pattern(/^[\S\u4e00-\u9fa5]{1,4}$/).required()
     }
 };
+
+exports.deleteArticleCate = {
+    params: {
+        id: Joi.number().integer().min(1).required()
+    }
+};
