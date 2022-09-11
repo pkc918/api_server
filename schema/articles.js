@@ -13,3 +13,9 @@ exports.deleteArticleCate = {
         id: Joi.number().integer().min(1).required()
     }
 };
+
+exports.getArticleCate = {
+    params: {
+        id: Joi.number().integer().min(1).required()
+    }
+}
