@@ -14,6 +14,8 @@ app.use(cors()); // 注册为全局可用中间件
 
 // 只能解析 application/x-www-form-urlencoded 格式的表数据
 app.use(express.urlencoded({extended: false}));
+// 托管静态文件
+app.use("/uploads", express.static("./uploads"));
 
 // 指令哪些接口不需要 token 身份认证
 app.use(JWT({secret: jwtSecretKey, algorithms: ["HS256"]}).unless({path: [/^\/api\//]}));
