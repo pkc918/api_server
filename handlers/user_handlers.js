@@ -1,4 +1,4 @@
-const db = require("../db/index");
+const db = require("../db");
 const {compareSync, hashSync} = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const {jwtSecretKey, expiresIn} = require("../config");

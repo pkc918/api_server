@@ -1,5 +1,5 @@
 const express = require("express");
-const userHandlers = require("./user_handlers");
+const userHandlers = require("../handlers/user_handlers");
 const {schema_Handlers} = require("../schema/schema_Handlers");
 const {login_schema} = require("../schema/user");
 

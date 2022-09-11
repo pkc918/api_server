@@ -1,4 +1,4 @@
-const db = require("../db/index");
+const db = require("../db");
 
 // 获取文章分类
 exports.getArticleCates = (req, res) => {

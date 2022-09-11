@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {schema_Handlers} = require("../schema/schema_Handlers");
 const {add_ArticleCate, deleteArticleCate, getArticleCate, updateArticleCate} = require("../schema/articles");
-const {getArticleCates, addArticleCate, deleteArticleCateById, getArticleCateById, updateArticleCateById} = require("./artcate_handler");
+const {getArticleCates, addArticleCate, deleteArticleCateById, getArticleCateById, updateArticleCateById} = require("../handlers/artcate_handler");
 
 // 获取文章分类路由
 router.get("/cates", getArticleCates);

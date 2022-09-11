@@ -1,6 +1,6 @@
 const express = require("express");
 const {schema_Handlers} = require("../schema/schema_Handlers");
-const {getUserInfo, updateUserInfo, updatePassword, updateAvatar} = require("./userinfo_handlers");
+const {getUserInfo, updateUserInfo, updatePassword, updateAvatar} = require("../handlers/userinfo_handlers");
 const {userInfo_schema, update_password, update_avatar} = require("../schema/user");
 
 
