@@ -74,3 +74,29 @@ exports.getArticleCateById = (req, res) => {
       }
     );
 };
+
+// 更新文章分类
+exports.updateArticleCateById = (req, res) => {
+    console.log(req.body);
+    db.query(
+      `select id from ev_article_cate where id <> ? && (name = ? or alias = ?)`,
+      [req.body.id, req.body.title, req.body.alias],
+      (err, result) => {
+          console.log(result);
+          if (err) return res.beforeSend(err, 502);
+          if (result.length > 0) return res.beforeSend(`分类名称或别称已占用!`, 502);
+          db.query(
+            `update ev_article_cate name = ? alias = ? where id = ?`,
+            [req.body.title, req.body.alias, req.body.id],
+            (err, result) => {
+                if (err) return res.beforeSend(err, 502);
+                if (result.affectedRows !== 1) return res.beforeSend(`更新文章分类名称失败!`, 502);
+                return res.send({
+                    status: 200,
+                    message: `更新成功!`
+                })
+            }
+          )
+      }
+    );
+};
