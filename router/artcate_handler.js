@@ -1,5 +1,6 @@
 const db = require("../db/index");
 
+// 获取文章分类
 exports.getArticleCates = (req, res) => {
     db.query(
       `select * from ev_article_cate where is_delete = 0 order by id asc`,
@@ -14,6 +15,7 @@ exports.getArticleCates = (req, res) => {
     );
 };
 
+// 新增文章分类
 exports.addArticleCate = (req, res) => {
     const values = [req.body.title, req.body.alias];
     db.query(
@@ -39,6 +41,7 @@ exports.addArticleCate = (req, res) => {
 
 };
 
+// 删除文章分类
 exports.deleteArticleCateById = (req, res) => {
     db.query(
       `update ev_article_cate set is_delete = 1 where id = ?`,
@@ -50,6 +53,23 @@ exports.deleteArticleCateById = (req, res) => {
           res.send({
               message: `删除成功!`,
               status: 200
+          });
+      }
+    );
+};
+
+// 获取文章分类
+exports.getArticleCateById = (req, res) => {
+    db.query(
+      `select * from ev_article_cate where id = ?`,
+      [req.params.id],
+      (err, result) => {
+          if (err) return res.beforeSend(err, 502);
+          if (result.length !== 1) return res.beforeSend(`获取文章分类失败!`, 502);
+          return res.send({
+              status: 200,
+              message: `获取文章分类成功!`,
+              data: result[0]
           });
       }
     );
