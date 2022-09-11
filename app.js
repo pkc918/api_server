@@ -7,7 +7,7 @@ const joi = require("joi");
 const userRouter = require("./router/user"); // 导入用户路由模块
 const userinfoRouter = require("./router/userinfo"); // 导入用户信息路由模块
 const artcateRouter = require("./router/artcate");
-const articlesRouter = require("./router/articles");
+const articlesRouter = require("./router/article");
 
 // 中间件
 app.use(cors()); // 注册为全局可用中间件
