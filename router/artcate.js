@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {schema_Handlers} = require("../schema/schema_Handlers");
-const {add_ArticleCate, deleteArticleCate, getArticleCate, updateArticleCate} = require("../schema/articles");
+const {add_ArticleCate, deleteArticleCate, getArticleCate, updateArticleCate} = require("../schema/articate");
 const {getArticleCates, addArticleCate, deleteArticleCateById, getArticleCateById, updateArticleCateById} = require("../handlers/artcate_handler");
 
 // 获取文章分类路由
