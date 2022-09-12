@@ -8,3 +8,9 @@ exports.add_article_schema = {
         state: Joi.string().valid("已发布", "草稿").required()
     }
 };
+
+exports.delete_Article_schema = {
+    params: {
+        id: Joi.number().integer().min(1).required()
+    }
+};
