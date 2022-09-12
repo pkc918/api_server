@@ -9,7 +9,13 @@ exports.add_article_schema = {
     }
 };
 
-exports.delete_Article_schema = {
+exports.delete_article_schema = {
+    params: {
+        id: Joi.number().integer().min(1).required()
+    }
+};
+
+exports.get_article_schema = {
     params: {
         id: Joi.number().integer().min(1).required()
     }
