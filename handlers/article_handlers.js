@@ -41,3 +41,20 @@ exports.deleteArticleById = (req, res) => {
       }
     );
 };
+
+// 查询文章详情
+exports.getArticleById = (req, res) => {
+    db.query(
+      `select * from ev_articles where id = ?`,
+      [req.params.id],
+      (err, result) => {
+          if (err) return res.beforeSend(err, 502);
+          if (result.length !== 1) return res.beforeSend(`没有找到该文章!`, 402);
+          return res.send({
+              status: 200,
+              message: `查询文章成功`,
+              data: result[0]
+          });
+      }
+    );
+};
